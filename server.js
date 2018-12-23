@@ -53,6 +53,9 @@ app.get("/scrape", function (req, res) {
             result.image = $(this)
                 .find(".item-image .imagewrap a img")
                 .attr("src");
+            result.teaser = $(this)
+                .find(".teaser a")
+                .text();
             // Create a new Article using the `result` object built from scraping
             db.Article.create(result)
                 .then(function (dbArticle) {
