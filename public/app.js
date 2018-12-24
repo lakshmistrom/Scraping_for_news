@@ -1,25 +1,43 @@
 // Grab the articles as a json
 $.getJSON("/articles", function (data) {
-  // For each one
-  for (var i = 0; i < data.length; i += 3) {
-    // Display the apropos information on the page
-    let active = (i === 0) ? 'active' : '';
-    let carItem = $(`<div class="carousel-item ${active} ">`);
-    let row = $('<div class="row">');
-    let end = Math.min(i + 3, data.length);
-    for (let j = i; j < end; j++) {
-      row.append(
-        `<div class="col-sm-4">
-        <div data-id='${data[j]._id}' class='card'>
-          <img class='card-img-top img-fluid' src='${data[j].image}' alt='article image' />
+  //data for a single article
+  let article = `
+      <div class='col-xl-3 col-sm-12 my-2' >
+        <div data-id='{{ id }}' class='card'>
+          <img class='card-img-top img-fluid' src='{{ image }}' alt='article image' />
           <div class='card-body'>
-            <h5 class='card-title'><a href='${data[j].link}'>${data[j].title}</a></h5>
-            <p class='card-text'>${data[j].teaser}</p>
-            <a href='#' class="btn btn-primary">Go somewhere</a>
+            <h5 class='card-title'>
+              <a href='{{ link }}'>{{ title }}</a>
+            </h5>
+            <p class='card-text'>{{ teaser }}</p>
+            <div class="row justify-content-between">
+              <div class="col-auto">
+                <a href='#' class='btn btn-primary'>Save</a>
+              </div>
+              <div class="col-auto">
+                <a href='#' class='btn btn-primary'>Notes</a>
+              </div>
+            </div>
           </div>
         </div>
-        </div>`
-      );
+    </div>`;
+  let template = Handlebars.compile(article);
+  // For each one
+  for (var i = 0; i < data.length; i += 4) {
+    // Display the apropiate information on the page
+    let active = (i === 0) ? 'active' : '';
+    let carItem = $(`<div class="carousel-item ${active} ">`);
+    let row = $('<div class="row row-nowrap align-items-center">');
+    let end = Math.min(i + 4, data.length);
+    for (let j = i; j < end; j++) {
+      let articleData = {
+        id: data[j]._id,
+        image: data[j].image,
+        link: data[j].link,
+        title: data[j].title,
+        teaser: data[j].teaser
+      }
+      row.append(template(articleData));
     }
     carItem.append(row);
     $("#articles").append(carItem);
