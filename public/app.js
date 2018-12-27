@@ -15,8 +15,17 @@ $.getJSON("/articles", function (data) {
                 <a href='#' class='btn btn-primary'>Save</a>
               </div>
               <div class="col-auto">
-                <a href='#' class='btn btn-primary'>Notes</a>
+                <a href='#noteCollapse-{{ id }}' class='btn btn-primary' data-toggle='collapse' role='button' aria-expanded='false' aria-controls='#noteCollapse-{{ id }}'>Notes</a>
               </div>
+            </div>
+            <div id='noteCollapse-{{ id }}' class='collapse'>
+              <form class='my-3'>
+                <div class='from-group mb-3'>
+                  <label for='noteBox'>Note:</label>
+                  <textarea class='form-control' id='noteBox' rows='3'></textarea>
+                </div>
+                <button type='submit' class='btn btn-success'>Save Note</button>
+              </form>
             </div>
           </div>
         </div>
