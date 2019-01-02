@@ -6,4 +6,4 @@ The idea for this site is for the user to be able to scrape news articles from t
     * It will let you save new notes by clicking the save new note button.
     * It will also let you delete individual notes by pressing the red X button next to each note.
     * It will show new notes above the save note form.
-![show working page](assets/images/npr_scrapper.png "NPR Scraper page")
+![show working page](public/assets/images/npr_scraper.png "NPR Scraper page")
